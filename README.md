@@ -1,16 +1,19 @@
-## Hi there 👋
+👋 Hi, I'm Emily Osa Iduseri
+Lecturer @ University of Benin (Faculty of Environmental Sciences)
+Environmental Assessor @ Abuja Environmental Protection Board (AEPB)
+I specialize in Environmental Impact Assessment (EIA), regulatory compliance, and sustainable development — with a strong focus on resource-constrained communities. At AEPB, I evaluate development projects to ensure they meet environmental standards and sustainability goals.
+🔍 What I do
+•	Teach & research: environmental management, soil/water pollution, water resources, renewable energy, and sustainable policy
+•	Bridge research and practice: translating evidence into actionable policy that balances ecosystem protection with development needs
+•	Work across learning systems: experienced in both conventional university teaching and Open & Distance Learning (ODL) pedagogy
+🎓 Education & Credentials
+•	PhD – Ambrose Alli University, Ekpoma
+•	MSc – Ahmadu Bello University, Zaria
+•	BSc (Geography & Regional Planning) – Ambrose Alli University, Ekpoma
+•	PGDE – National Open University of Nigeria
+Registered Geographer & Environmentalist with national/international professional bodies.
+🌱 Core values
+Integrity · Analytical excellence · Innovative solutions to environmental and developmental challenges
 
-<!--
-**iemily0273/iemily0273** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Let’s connect – I’m always open to collaborations on research, policy, or environmental assessment tools.
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
