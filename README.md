@@ -17,3 +17,11 @@ Integrity · Analytical excellence · Innovative solutions to environmental and 
 
 Let’s connect – I’m always open to collaborations on research, policy, or environmental assessment tools.
 
+---
+
+## Publications
+
+A publications page is now available at the repository root via `index.html`. It reads `publications.csv` and links each title to Google Scholar search results.
+
+- Google Scholar profile: https://scholar.google.com/citations?hl=en&user=zdg3BacAAAAJ
+

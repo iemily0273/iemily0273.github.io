@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emily Osa Iduseri — Publications</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f6f8fb; color: #111; }
+    .page { max-width: 900px; margin: 0 auto; padding: 24px; }
+    header { padding: 24px 0; }
+    h1 { margin: 0 0 8px; font-size: 2.1rem; }
+    p { margin: 0.8rem 0; }
+    a { color:#1155cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    th, td { padding: 12px 10px; border: 1px solid #d3d7db; vertical-align: top; }
+    th { background: #eef2f6; text-align: left; }
+    tr:nth-child(even) { background: #fff; }
+    .meta { color: #555; font-size: 0.95rem; }
+    .note { margin-top: 14px; background: #e5f1ff; border-left: 4px solid #1c6dd0; padding: 12px 14px; }
+    .small { font-size: 0.95rem; color: #444; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Emily Osa Iduseri</h1>
+      <p>Lecturer @ University of Benin | Environmental Assessor @ AEPB | Research in environmental management, sustainable development, and resource-constrained communities.</p>
+      <p><strong>Google Scholar profile:</strong> <a href="https://scholar.google.com/citations?hl=en&user=zdg3BacAAAAJ" target="_blank" rel="noopener noreferrer">https://scholar.google.com/citations?hl=en&user=zdg3BacAAAAJ</a></p>
+      <div class="note">This page reads publication data from <code>publications.csv</code> and links each title to Google Scholar search results.</div>
+    </header>
+
+    <section>
+      <h2>Publications</h2>
+      <p>Click a publication title to view it on Google Scholar. If the title is not available directly from Google Scholar, the link searches the title text.</p>
+      <div id="loading">Loading publications…</div>
+      <table id="pub-table" hidden>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Title</th>
+            <th>Journal / Publisher</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    function parseCsvLine(line) {
+      const fields = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          if (inQuotes && line[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          fields.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      fields.push(current);
+      return fields;
+    }
+
+    async function loadPublications() {
+      try {
+        const response = await fetch('publications.csv');
+        if (!response.ok) {
+          throw new Error('Could not load publication data.');
+        }
+        const text = await response.text();
+        const lines = text.trim().split(/\r?\n/).filter(line => line.trim().length > 0);
+        if (lines.length <= 1) {
+          throw new Error('Publication CSV is empty or missing header.');
+        }
+        const header = parseCsvLine(lines[0]);
+        const dataRows = lines.slice(1).map(parseCsvLine);
+
+        const titleIdx = header.findIndex(value => value.toLowerCase().includes('title'));
+        const pubIdx = header.findIndex(value => value.toLowerCase().includes('publication') || value.toLowerCase().includes('publisher'));
+        const yearIdx = header.findIndex(value => value.toLowerCase().includes('year'));
+        const authorsIdx = header.findIndex(value => value.toLowerCase().includes('author'));
+
+        const tbody = document.querySelector('#pub-table tbody');
+        dataRows.forEach(row => {
+          const title = row[titleIdx] || row[1] || 'Untitled publication';
+          const publication = row[pubIdx] || '';
+          const year = row[yearIdx] || '';
+          const authors = row[authorsIdx] || '';
+          const queryText = title + (year ? ' ' + year : '');
+          const searchUrl = 'https://scholar.google.com/scholar?q=' + encodeURIComponent(queryText);
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${year}</td>
+            <td><a href="${searchUrl}" target="_blank" rel="noopener noreferrer">${title}</a><div class="small">${authors}</div></td>
+            <td>${publication}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById('loading').hidden = true;
+        document.getElementById('pub-table').hidden = false;
+      } catch (error) {
+        const loading = document.getElementById('loading');
+        loading.textContent = 'Unable to load publications. Please ensure publications.csv is present in the repository.';
+        console.error(error);
+      }
+    }
+
+    loadPublications();
+  </script>
+</body>
+</html>
