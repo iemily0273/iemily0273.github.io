@@ -89,7 +89,8 @@
 
     async function loadPublications() {
       try {
-        const response = await fetch('publications.csv');
+        const cacheBuster = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const response = await fetch(`publications.csv?cb=${cacheBuster}`);
         if (!response.ok) {
           throw new Error('Could not load publication data.');
         }
