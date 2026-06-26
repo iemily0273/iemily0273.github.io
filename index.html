@@ -106,6 +106,7 @@
         const pubIdx = header.findIndex(value => value.toLowerCase().includes('publication') || value.toLowerCase().includes('publisher'));
         const yearIdx = header.findIndex(value => value.toLowerCase().includes('year'));
         const authorsIdx = header.findIndex(value => value.toLowerCase().includes('author'));
+        const scholarUrlIdx = header.findIndex(value => value.toLowerCase().includes('scholar'));
 
         const tbody = document.querySelector('#pub-table tbody');
         dataRows.forEach(row => {
@@ -113,13 +114,15 @@
           const publication = row[pubIdx] || '';
           const year = row[yearIdx] || '';
           const authors = row[authorsIdx] || '';
+          const scholarUrl = scholarUrlIdx >= 0 ? row[scholarUrlIdx] : '';
           const queryText = title + (year ? ' ' + year : '');
           const searchUrl = 'https://scholar.google.com/scholar?q=' + encodeURIComponent(queryText);
+          const linkUrl = scholarUrl || searchUrl;
 
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${year}</td>
-            <td><a href="${searchUrl}" target="_blank" rel="noopener noreferrer">${title}</a><div class="small">${authors}</div></td>
+            <td><a href="${linkUrl}" target="_blank" rel="noopener noreferrer">${title}</a><div class="small">${authors}</div></td>
             <td>${publication}</td>
           `;
           tbody.appendChild(tr);
